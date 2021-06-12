@@ -2,6 +2,7 @@
 *.log
 dist/*
 target/*
+project/*
 lib_managed/
 src_managed/
 project/boot/
@@ -11,4 +12,5 @@ project/plugins/project/
 .lib/
 .idea
 .bsp
-project/*
+.vscode
+.metals
