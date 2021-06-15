@@ -3,9 +3,9 @@ import scala.collection.immutable.ListMap
 
 object GenerateISOMessage extends App {
   val iso = new IsoUtils
-  val client = new ClientSocket
+  val clientSocket = new ClientSocket
 
-  val json = Json.parse("{ message8583 here bro :) }").as[Map[String, String]]
+  val json = Json.parse("{ message8583 in json here bro :D }").as[Map[String, String]]
 
   val jsonMap: Map[Int, String] = ListMap(json.map {case (k, v) => (k.toInt, v) }.toSeq.sortBy(_._1):_*)
   val jsonKeys = jsonMap.keys
@@ -19,6 +19,11 @@ object GenerateISOMessage extends App {
 
   val bitmap = values.replaceAll("(.{4})", "$1 ")
 
-  val msg:String = s"${jsonMap(0)}${iso.bin2Hex(values)}${iso.selectValues(3,25,jsonMap)}${iso.string2Hex(iso.selectValues(40,125,jsonMap))} "
+  val isoMessage:String = s"${jsonMap(0)}${iso.bin2Hex(bitmap)}${iso.selectValues(1,27,jsonMap)}${iso.selectValuesHex(28,45,jsonMap)}${iso.selectValuesSizeAndHex(46,128,jsonMap)} "
+
+  val messageBytes = iso.convert2Bytes(isoMessage)
+  val headerBytes = iso.generateHeader2Bytes(messageBytes)
+
+  clientSocket.run(headerBytes,messageBytes)
 
 }
