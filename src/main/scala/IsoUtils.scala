@@ -33,8 +33,8 @@ class IsoUtils {
     var values: String = ""
     for (value <- index to last) {
       if (json.contains(value)) {
-        if (json(value) != json.values.last) values += s"${formatterNumbers(json(value).length.toString)}${string2Hex(json(value))}​​​​​​​"
-        else values += s"${formatterLastNumbers(json(value).length.toString)}​​​​​​​${string2Hex(json(value))}​​​​​​​"
+        if (json(value) != json.values.last) values += s"${formatterNumbers(json(value).length.toString)}${string2Hex(json(value))}"
+        else values += s"${formatterLastNumbers(json(value).length.toString)}${string2Hex(json(value))}"
       }
     }
     values

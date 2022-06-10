@@ -8,9 +8,9 @@ class ClientSocket{
       val serverPort: Int = 123456
       val host = InetAddress.getByName("localhost")
       println("\n=============================================================")
-      println(s" Trying connect to a server ${host}​​​​ on port: ${serverPort}​​​​")
+      println(s" Trying connect to a server ${host} on port: ${serverPort}")
       val socket = new Socket(host, serverPort)
-      println(s" Connected to ${socket.getInetAddress()}​​")
+      println(s" Connected to ${socket.getInetAddress()}")
       println("=============================================================")
 
       val toServer = socket.getOutputStream
@@ -20,7 +20,7 @@ class ClientSocket{
       toServer.write(isoMessage)
       toServer.flush()
 
-      println(s" Sending message server: \n ${header.mkString}​${isoMessage.mkString}​")
+      println(s" Sending message server: \n ${header.mkString}${isoMessage.mkString}")
       print("==========================================================")
 
       val line = fromServer.read()
